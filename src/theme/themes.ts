@@ -1,5 +1,5 @@
 import { colors } from './colors';
-import { AppTheme } from '../types';
+import { AppTheme } from '../types/theme';
 
 export const lightTheme: AppTheme = {
   dark: false,
