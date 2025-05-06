@@ -34,7 +34,16 @@ export type User {
   };
 }
 
-
+export type UseUserManagerReturn {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
+  updateProfile: (updates: Partial<User>) => Promise<boolean>;
+  updatePreferences: (preferences: Partial<User['preferences']>) => Promise<boolean>;
+}
 
 export type RootStackParamList = {
   Auth: undefined;
