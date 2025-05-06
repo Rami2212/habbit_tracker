@@ -21,6 +21,24 @@ export type HabitLog {
   notes?: string;
 }
 
+export type HabitContextType {
+  habits: Habit[];
+  habitLogs: HabitLog[];
+  isLoading: boolean;
+  refreshHabits: () => Promise<void>;
+  refreshLogs: () => Promise<void>;
+  saveHabit: (habit: Habit) => Promise<boolean>;
+  deleteHabit: (habitId: string) => Promise<boolean>;
+  archiveHabit: (habitId: string) => Promise<boolean>;
+  toggleHabitCompletion: (habitId: string, date: string) => Promise<boolean>;
+  saveHabitLog: (log: HabitLog) => Promise<boolean>;
+  getActiveHabits: () => Habit[];
+  getArchivedHabits: () => Habit[];
+  getHabitById: (habitId: string) => Habit | undefined;
+  getHabitLogsForDate: (date: string) => HabitLog[];
+  getHabitLogsForHabit: (habitId: string) => HabitLog[];
+}
+
 
 // User
 export type User {
@@ -34,6 +52,17 @@ export type User {
   };
 }
 
+export type UserContextType {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (name: string, email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
+  updateProfile: (updates: Partial<User>) => Promise<boolean>;
+  updatePreferences: (preferences: Partial<User['preferences']>) => Promise<boolean>;
+}
+
 export type UseUserManagerReturn {
   user: User | null;
   isLoading: boolean;
@@ -44,6 +73,9 @@ export type UseUserManagerReturn {
   updateProfile: (updates: Partial<User>) => Promise<boolean>;
   updatePreferences: (preferences: Partial<User['preferences']>) => Promise<boolean>;
 }
+
+
+
 
 export type RootStackParamList = {
   Auth: undefined;
