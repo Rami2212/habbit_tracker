@@ -1,3 +1,4 @@
+// Habit
 export type HabitFrequency = 'daily' | 'weekly' | 'monthly';
 
 export type Habit {
@@ -20,6 +21,8 @@ export type HabitLog {
   notes?: string;
 }
 
+
+// User
 export type User {
   id: string;
   name: string;
@@ -31,6 +34,8 @@ export type User {
   };
 }
 
+
+// Theme
 export type AppTheme {
   dark: boolean;
   colors: {
@@ -51,3 +56,29 @@ export type AppTheme {
   };
 }
 
+export type ThemeContextType {
+  theme: AppTheme;
+  isDarkMode: boolean;
+  toggleTheme: () => void;
+  setDarkMode: (value: boolean) => void;
+}
+
+
+
+export type RootStackParamList = {
+  Auth: undefined;
+  Main: undefined;
+  Login: undefined;
+  Register: undefined;
+  AddHabit: undefined;
+  EditHabit: { habitId: string };
+  HabitDetail: { habitId: string };
+};
+
+export type MainTabParamList = {
+  Home: undefined;
+  Habits: undefined;
+  AddHabit: undefined;
+  Calendar: undefined;
+  Settings: undefined;
+};
