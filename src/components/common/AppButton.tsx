@@ -9,29 +9,43 @@ import {
 } from 'react-native';
 import { AppButtonProps } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AppButton: React.FC<AppButtonProps> = ({
   title,
   onPress,
+  loading = false,
+  isDisabled = false,
   style,
   textStyle,
-  loading = false,
+  icon,
 }) => {
   const { theme } = useTheme();
 
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: theme.colors.primary,
+      flexDirection: 'row',
+      backgroundColor: isDisabled
+        ? theme.colors.disabled || '#cccccc'
+        : theme.colors.primary,
       borderRadius: 12,
       paddingVertical: 12,
       paddingHorizontal: 20,
       justifyContent: 'center',
       alignItems: 'center',
+      opacity: loading || isDisabled ? 0.7 : 1,
     } as ViewStyle,
+
     text: {
-      color: '#FFFFFF',
+      color: "#FFFFFF",
       fontSize: 16,
       fontWeight: '600',
+      marginLeft: icon ? 8 : 0,
+    } as TextStyle,
+
+    icon: {
+      color: "#FFFFFF",
+      fontSize: 16,
     } as TextStyle,
   });
 
@@ -40,12 +54,15 @@ const AppButton: React.FC<AppButtonProps> = ({
       onPress={onPress}
       style={[styles.button, style]}
       activeOpacity={0.8}
-      disabled={loading}
+      disabled={loading || isDisabled}
     >
       {loading ? (
         <ActivityIndicator color={theme.colors.white} />
       ) : (
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        <>
+          {icon && <Icon name={icon} style={styles.icon} />}
+          <Text style={[styles.text, textStyle]}>{title}</Text>
+        </>
       )}
     </TouchableOpacity>
   );

@@ -115,11 +115,9 @@ export type HeaderProps {
 export type AppButtonProps {
   title: string;
   onPress: () => void;
-  type?: 'primary' | 'secondary' | 'outline' | 'text';
-  size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   loading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
-  icon?: React.ReactNode;
+  icon?: string;
 }
