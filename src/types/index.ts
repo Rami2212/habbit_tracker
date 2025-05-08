@@ -41,16 +41,17 @@ export type HabitContextType {
 
 
 // User
-export type User {
+export type User = {
   id: string;
   name: string;
   email: string;
-  avatar?: string;
+  password: string; // In a real app, this should be hashed and not stored in the client
+  isGuest?: boolean;
   preferences: {
-    darkMode: boolean;
-    reminderTime?: string;
+    theme?: 'light' | 'dark';
+    [key: string]: any;
   };
-}
+};
 
 export type UserContextType {
   user: User | null;
@@ -75,22 +76,50 @@ export type UseUserManagerReturn {
 }
 
 
-
+// Navigation
+import { Routes } from './navigation/routes';
 
 export type RootStackParamList = {
-  Auth: undefined;
-  Main: undefined;
-  Login: undefined;
-  Register: undefined;
-  AddHabit: undefined;
-  EditHabit: { habitId: string };
-  HabitDetail: { habitId: string };
+  [Routes.AUTH]: undefined;
+  [Routes.MAIN]: undefined;
+};
+
+export type AuthStackParamList = {
+  [Routes.LOGIN]: undefined;
+  [Routes.REGISTER]: undefined;
 };
 
 export type MainTabParamList = {
-  Home: undefined;
-  Habits: undefined;
-  AddHabit: undefined;
-  Calendar: undefined;
-  Settings: undefined;
+  [Routes.HOME]: undefined;
+  [Routes.HABITS]: undefined;
+  [Routes.ADD_HABIT]: undefined;
+  [Routes.CALENDAR]: undefined;
+  [Routes.SETTINGS]: undefined;
 };
+
+export type HabitsStackParamList = {
+  [Routes.HABITS]: undefined;
+  [Routes.EDIT_HABIT]: { habitId: string };
+  [Routes.HABIT_DETAIL]: { habitId: string };
+};
+
+
+// Components
+export type HeaderProps {
+  title: string;
+  showBackButton?: boolean;
+  rightComponent?: React.ReactNode;
+  onBackPress?: () => void;
+}
+
+export type AppButtonProps {
+  title: string;
+  onPress: () => void;
+  type?: 'primary' | 'secondary' | 'outline' | 'text';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
+  loading?: boolean;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  icon?: React.ReactNode;
+}
