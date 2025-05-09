@@ -3,7 +3,7 @@ export const Routes = {
   AUTH: 'Auth',
   LOGIN: 'Login',
   REGISTER: 'Register',
-  
+
   // Main App Routes
   MAIN: 'Main',
   HOME: 'Home',

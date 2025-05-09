@@ -1,4 +1,3 @@
-// src/navigation/AuthNavigator.tsx
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Routes } from './routes';
@@ -7,7 +6,7 @@ import RegisterScreen from '../screens/auth/RegisterScreen';
 
 const Stack = createStackNavigator();
 
-const AuthNavigator: React.FC = () => {
+const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />

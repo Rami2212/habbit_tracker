@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -10,10 +9,10 @@ import { UserProvider } from './src/context/UserContext';
 import SplashScreen from './src/screens/SplashScreen';
 import Toast from 'react-native-toast-message';
 
+// app content
 const AppContent = () => {
   const { theme } = useTheme();
 
-  // Custom theme for NavigationContainer
   const navigationTheme = {
     ...(theme.dark ? DarkTheme : DefaultTheme),
     colors: {
@@ -41,11 +40,11 @@ const AppContent = () => {
   );
 };
 
+// app
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate some loading time for splash screen
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
