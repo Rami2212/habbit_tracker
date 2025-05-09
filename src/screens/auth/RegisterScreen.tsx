@@ -157,6 +157,7 @@ const RegisterScreen: React.FC = () => {
               loading={isLoading}
               disabled={isLoading}
               style={{ marginTop: 16 }}
+              icon="home"
             />
           </View>
 
