@@ -64,14 +64,6 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return success;
   };
 
-  const archiveHabitData = async (habitId: string): Promise<boolean> => {
-    const success = await habitService.archiveHabit(habitId);
-    if (success) {
-      await refreshHabits();
-    }
-    return success;
-  };
-
   const toggleHabitCompletionData = async (habitId: string, date: string): Promise<boolean> => {
     const success = await habitService.toggleHabitCompletion(habitId, date);
     if (success) {
@@ -119,7 +111,6 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         refreshLogs,
         saveHabit: saveHabitData,
         deleteHabit: deleteHabitData,
-        archiveHabit: archiveHabitData,
         toggleHabitCompletion: toggleHabitCompletionData,
         saveHabitLog: saveHabitLogData,
         getActiveHabits,

@@ -1,16 +1,12 @@
 // Habit
-export type HabitFrequency = 'daily' | 'weekly' | 'monthly';
-
 export type Habit {
   id: string;
   title: string;
   description?: string;
   icon: string;
-  frequency: HabitFrequency;
+  time: Date;
   color: string;
-  reminder?: Date | null;
   createdAt: Date;
-  isArchived: boolean;
 }
 
 export type HabitLog {
@@ -120,4 +116,14 @@ export type AppButtonProps {
   style?: ViewStyle;
   textStyle?: TextStyle;
   icon?: string;
+}
+
+export type HabitCardProps {
+  habit: Habit;
+  todayLog?: HabitLog;
+  onPress: (habit: Habit) => void;
+  onToggle: (habit: Habit) => void;
+  onLongPress: (habit: Habit) => void;
+  onEdit: (habit: Habit) => void;
+  onDelete: (habit: Habit) => void;
 }

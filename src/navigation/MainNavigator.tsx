@@ -67,9 +67,11 @@ const MainNavigator: React.FC = () => {
         tabBarStyle: {
           backgroundColor: theme.colors.card,
           borderTopColor: theme.colors.border,
-          height: 60,
-          paddingBottom: 8,
+          height: 75,
+          paddingBottom: 12,
+          paddingTop: 4,
         },
+
         tabBarItemStyle: {
           paddingVertical: 5,
         },

@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({
     title: {
       fontSize: 18,
       fontWeight: '600',
-      color: colors.text,
+      color: theme.colors.text,
       marginLeft: showBackButton ? 8 : 0,
     },
   });
@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
               <Icon
                 name="chevron-back"
                 size={24}
-                color={colors.text}
+                color={theme.colors.text}
               />
             </TouchableOpacity>
           )}
