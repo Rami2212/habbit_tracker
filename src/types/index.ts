@@ -49,27 +49,17 @@ export type User = {
   };
 };
 
-export type UserContextType {
+export type UserContextType = {
   user: User | null;
   isLoading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
-  logout: () => Promise<boolean>;
-  updateProfile: (updates: Partial<User>) => Promise<boolean>;
-  updatePreferences: (preferences: Partial<User['preferences']>) => Promise<boolean>;
-}
-
-export type UseUserManagerReturn {
-  user: User | null;
-  isLoading: boolean;
-  error: string | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  register: (name: string, email: string, password: string) => Promise<boolean>;
-  logout: () => Promise<boolean>;
-  updateProfile: (updates: Partial<User>) => Promise<boolean>;
-  updatePreferences: (preferences: Partial<User['preferences']>) => Promise<boolean>;
-}
+  login: (email: string, password: string) => Promise<User>;
+  logout: () => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<User>;
+  updateProfile: (updates: Partial<User>) => Promise<User>;
+  updatePreferences: (preferences: Partial<User['preferences']>) => Promise<User>;
+  clearError: () => void;
+};
 
 
 // Navigation
