@@ -21,7 +21,7 @@ interface AppTextInputProps extends TextInputProps {
   onRightIconPress?: () => void;
 }
 
-const AppTextInput: React.FC<AppTextInputProps> = ({
+const AppTextInput = ({
   label,
   error,
   containerStyle,
@@ -30,48 +30,9 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
   rightIcon,
   onRightIconPress,
   ...props
-}) => {
+}: AppTextInputProps) => {
   const { theme } = useTheme();
-
-  const styles = StyleSheet.create({
-    container: {
-      marginBottom: 16,
-    },
-
-    label: {
-      marginBottom: 8,
-      fontSize: 14,
-      fontWeight: '500',
-      color: theme.colors.text,
-    },
-
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      backgroundColor: theme.colors.inputBackground,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: error ? theme.colors.danger : theme.colors.border,
-    },
-
-    input: {
-      flex: 1,
-      paddingVertical: 12,
-      paddingHorizontal: 16,
-      color: theme.colors.text,
-      fontSize: 16,
-    },
-
-    rightIconContainer: {
-      paddingHorizontal: 12,
-    },
-
-    errorText: {
-      color: theme.colors.danger,
-      fontSize: 12,
-      marginTop: 4,
-    },
-  });
+  const styles = createStyles(theme, error);
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -100,5 +61,46 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
     </View>
   );
 };
+
+// styles
+const createStyles = (theme: any, error: string) => StyleSheet.create({
+  container: {
+    marginBottom: 16,
+  },
+
+  label: {
+    marginBottom: 8,
+    fontSize: 14,
+    fontWeight: '500',
+    color: theme.colors.text,
+  },
+
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.inputBackground,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: error ? theme.colors.danger : theme.colors.border,
+  },
+
+  input: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    color: theme.colors.text,
+    fontSize: 16,
+  },
+
+  rightIconContainer: {
+    paddingHorizontal: 12,
+  },
+
+  errorText: {
+    color: theme.colors.danger,
+    fontSize: 12,
+    marginTop: 4,
+  },
+});
 
 export default AppTextInput;

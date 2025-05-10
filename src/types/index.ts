@@ -1,4 +1,4 @@
-// Habit
+// habit
 export type Habit {
   id: string;
   title: string;
@@ -36,12 +36,12 @@ export type HabitContextType {
 }
 
 
-// User
+// user
 export type User = {
   id: string;
   name: string;
   email: string;
-  password: string; // In a real app, this should be hashed and not stored in the client
+  password: string;
   isGuest?: boolean;
   preferences: {
     theme?: 'light' | 'dark';
@@ -62,7 +62,7 @@ export type UserContextType = {
 };
 
 
-// Navigation
+// navigation
 import { Routes } from './navigation/routes';
 
 export type RootStackParamList = {
@@ -116,4 +116,10 @@ export type HabitCardProps {
   onLongPress: (habit: Habit) => void;
   onEdit: (habit: Habit) => void;
   onDelete: (habit: Habit) => void;
+}
+
+// home components
+export type WeekCalendarProps {
+  onDateSelect: (date: Date) => void;
+  selectedDate: Date;
 }

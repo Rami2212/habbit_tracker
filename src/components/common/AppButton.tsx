@@ -11,7 +11,7 @@ import { AppButtonProps } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AppButton: React.FC<AppButtonProps> = ({
+const AppButton = ({
   title,
   onPress,
   loading = false,
@@ -19,10 +19,31 @@ const AppButton: React.FC<AppButtonProps> = ({
   style,
   textStyle,
   icon,
-}) => {
+}: AppButtonProps) => {
   const { theme } = useTheme();
+  const styles = createStyles(theme, isDisabled, loading, icon);
 
-  const styles = StyleSheet.create({
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.button, style]}
+      activeOpacity={0.8}
+      disabled={loading || isDisabled}
+    >
+      {loading ? (
+        <ActivityIndicator color={theme.colors.white} />
+      ) : (
+        <>
+          {icon && <Icon name={icon} style={styles.icon} />}
+          <Text style={[styles.text, textStyle]}>{title}</Text>
+        </>
+      )}
+    </TouchableOpacity>
+  );
+};
+
+// styles
+const createStyles = (theme: any, isDisabled: boolean, loading: boolean, icon: string) => StyleSheet.create({
     button: {
       flexDirection: 'row',
       backgroundColor: isDisabled
@@ -47,25 +68,6 @@ const AppButton: React.FC<AppButtonProps> = ({
       color: "#FFFFFF",
       fontSize: 16,
     } as TextStyle,
-  });
-
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[styles.button, style]}
-      activeOpacity={0.8}
-      disabled={loading || isDisabled}
-    >
-      {loading ? (
-        <ActivityIndicator color={theme.colors.white} />
-      ) : (
-        <>
-          {icon && <Icon name={icon} style={styles.icon} />}
-          <Text style={[styles.text, textStyle]}>{title}</Text>
-        </>
-      )}
-    </TouchableOpacity>
-  );
-};
+});
 
 export default AppButton;

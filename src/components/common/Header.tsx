@@ -13,13 +13,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { HeaderProps } from '../../types';
 import { colors } from '../../theme/colors';
 
-const Header: React.FC<HeaderProps> = ({
+const Header = ({
   title,
   showBackButton = false,
   rightComponent,
   onBackPress,
-}) => {
+}: HeaderProps) => {
   const { theme } = useTheme();
+  const styles = createStyles(theme, showBackButton);
   const navigation = useNavigation();
 
   const handleBackPress = () => {
@@ -29,40 +30,6 @@ const Header: React.FC<HeaderProps> = ({
       navigation.goBack();
     }
   };
-
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: colors.background,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.colors.lightGray,
-      paddingTop: 20,
-      paddingBottom: 5,
-    },
-    content: {
-      height: 56,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: 16,
-    },
-    leftContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    backButton: {
-      width: 40,
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
-    },
-    title: {
-      fontSize: 18,
-      fontWeight: '600',
-      color: theme.colors.text,
-      marginLeft: showBackButton ? 8 : 0,
-    },
-  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -95,5 +62,40 @@ const Header: React.FC<HeaderProps> = ({
     </SafeAreaView>
   );
 };
+
+// styles
+const createStyles = (theme: any, showBackButton: boolean) => StyleSheet.create({
+     container: {
+       backgroundColor: colors.background,
+       borderBottomWidth: 1,
+       borderBottomColor: theme.colors.lightGray,
+       paddingTop: 20,
+       paddingBottom: 5,
+     },
+     content: {
+       height: 56,
+       flexDirection: 'row',
+       alignItems: 'center',
+       justifyContent: 'space-between',
+       paddingHorizontal: 16,
+     },
+     leftContainer: {
+       flexDirection: 'row',
+       alignItems: 'center',
+     },
+     backButton: {
+       width: 40,
+       height: 40,
+       alignItems: 'center',
+       justifyContent: 'center',
+       borderRadius: 20,
+     },
+     title: {
+       fontSize: 18,
+       fontWeight: '600',
+       color: theme.colors.text,
+       marginLeft: showBackButton ? 8 : 0,
+     },
+});
 
 export default Header;

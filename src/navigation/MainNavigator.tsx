@@ -104,6 +104,7 @@ const createStyles = (theme: any) => StyleSheet.create({
     borderTopColor: theme.colors.border,
     height: 70,
     elevation: 5,
+    borderTopWidth: 2,
   },
   tabLabel: {
     fontSize: 12,
@@ -113,15 +114,16 @@ const createStyles = (theme: any) => StyleSheet.create({
   },
   addButton: {
     backgroundColor: theme.colors.primary,
-    borderRadius: 28,
-    padding: 10,
-    width: 56,
-    height: 56,
+    borderRadius: 35,
+    width: 70,
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    top: -10,
-    elevation: 2,
-  }
+    elevation: 0,
+    borderWidth: 8,
+    borderColor: "#FFFFFF",
+    top: -16,
+  },
 });
 
 export default MainNavigator;
