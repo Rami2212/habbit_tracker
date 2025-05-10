@@ -17,15 +17,17 @@ import Header from '../../components/common/Header';
 import { Routes } from '../../navigation/routes';
 import { UserContext } from '../../context/UserContext';
 
-const RegisterScreen: React.FC = () => {
+const RegisterScreen = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const styles = createStyles(theme);
+  const { register } = useContext(UserContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { register } = useContext(UserContext);
   const [error, setError] = useState('');
 
   // register
@@ -58,48 +60,7 @@ const RegisterScreen: React.FC = () => {
     navigation.navigate(Routes.LOGIN as never);
   };
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-    },
-    content: {
-      flex: 1,
-      padding: 24,
-    },
-    title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      color: theme.colors.text,
-      marginBottom: 8,
-    },
-    subtitle: {
-      fontSize: 16,
-      color: theme.colors.darkGray,
-      marginBottom: 32,
-    },
-    form: {
-      marginBottom: 24,
-    },
-    errorText: {
-      color: theme.colors.danger,
-      textAlign: 'center',
-      marginBottom: 16,
-    },
-    loginContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop: 24,
-    },
-    loginText: {
-      color: theme.colors.text,
-    },
-    loginLink: {
-      color: theme.colors.primary,
-      fontWeight: '600',
-      marginLeft: 4,
-    },
-  });
+  const styles =
 
   return (
     <SafeAreaView style={styles.container}>
@@ -112,12 +73,13 @@ const RegisterScreen: React.FC = () => {
         <ScrollView contentContainerStyle={styles.content}>
           <Text style={styles.title}>Welcome!</Text>
           <Text style={styles.subtitle}>
-            Create an account to start tracking your habits and achieve your goals.
+            Create an account to start tracking your habits.
           </Text>
 
           <View style={styles.form}>
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
+            {/* name */}
             <AppTextInput
               label="Full Name"
               placeholder="Enter your name"
@@ -126,6 +88,7 @@ const RegisterScreen: React.FC = () => {
               onChangeText={setName}
             />
 
+            {/* email */}
             <AppTextInput
               label="Email"
               placeholder="your.email@example.com"
@@ -135,6 +98,7 @@ const RegisterScreen: React.FC = () => {
               onChangeText={setEmail}
             />
 
+            {/* password */}
             <AppTextInput
               label="Password"
               placeholder="Create a password"
@@ -143,6 +107,7 @@ const RegisterScreen: React.FC = () => {
               onChangeText={setPassword}
             />
 
+            {/* confirm password */}
             <AppTextInput
               label="Confirm Password"
               placeholder="Confirm your password"
@@ -151,6 +116,7 @@ const RegisterScreen: React.FC = () => {
               onChangeText={setConfirmPassword}
             />
 
+            {/* register button */}
             <AppButton
               title="Sign Up"
               onPress={handleRegister}
@@ -161,6 +127,7 @@ const RegisterScreen: React.FC = () => {
             />
           </View>
 
+          {/* login button */}
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account?</Text>
             <TouchableOpacity onPress={handleLogin}>
@@ -172,5 +139,49 @@ const RegisterScreen: React.FC = () => {
     </SafeAreaView>
   );
 };
+
+// styles
+const createStyles = (theme: any) => StyleSheet.create({
+     container: {
+       flex: 1,
+       backgroundColor: theme.colors.background,
+     },
+     content: {
+       flex: 1,
+       padding: 24,
+     },
+     title: {
+       fontSize: 28,
+       fontWeight: 'bold',
+       color: theme.colors.text,
+       marginBottom: 8,
+     },
+     subtitle: {
+       fontSize: 16,
+       color: theme.colors.darkGray,
+       marginBottom: 32,
+     },
+     form: {
+       marginBottom: 24,
+     },
+     errorText: {
+       color: theme.colors.danger,
+       textAlign: 'center',
+       marginBottom: 16,
+     },
+     loginContainer: {
+       flexDirection: 'row',
+       justifyContent: 'center',
+       marginTop: 24,
+     },
+     loginText: {
+       color: theme.colors.text,
+     },
+     loginLink: {
+       color: theme.colors.primary,
+       fontWeight: '600',
+       marginLeft: 4,
+     },
+   });
 
 export default RegisterScreen;

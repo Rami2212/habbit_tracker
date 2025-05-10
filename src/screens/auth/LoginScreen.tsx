@@ -17,13 +17,15 @@ import AppButton from '../../components/common/AppButton';
 import { Routes } from '../../navigation/routes';
 import { UserContext } from '../../context/UserContext';
 
-const LoginScreen: React.FC = () => {
+const LoginScreen = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
+  const styles = createStyles(theme);
+  const { login, error, clearError } = useContext(UserContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login, error, clearError } = useContext(UserContext);
   const [loginError, setLoginError] = useState('');
 
   // errors handling
@@ -65,7 +67,79 @@ const LoginScreen: React.FC = () => {
     navigation.navigate(Routes.REGISTER as never);
   };
 
-  const styles = StyleSheet.create({
+  return (
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.content}
+      >
+        <View style={styles.header}>
+          {/* logo & app name */}
+          <Image
+            source={require('../../assets/logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text style={styles.appName}>Habitly</Text>
+          <Text style={styles.appDescription}>
+            Build better habits, achieve your goals
+          </Text>
+        </View>
+
+        <View style={styles.form}>
+          {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
+
+          {/* email */}
+          <AppTextInput
+            label="Email"
+            placeholder="your.email@example.com"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              setLoginError('');
+            }}
+          />
+
+          {/* password */}
+          <AppTextInput
+            label="Password"
+            placeholder="Enter your password"
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text);
+              setLoginError('');
+            }}
+          />
+
+          <View style={{ height: 16 }} />
+
+          {/* login button */}
+          <AppButton
+            title="Log In"
+            onPress={handleLogin}
+            loading={isLoading}
+            disabled={isLoading}
+            icon='home'
+          />
+        </View>
+
+        {/* register button */}
+        <View style={styles.registerContainer}>
+          <Text style={styles.registerText}>Don't have an account?</Text>
+          <TouchableOpacity onPress={handleRegister}>
+            <Text style={styles.registerLink}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
+
+// styles
+const createStyles = (theme: any) => StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
@@ -123,71 +197,5 @@ const LoginScreen: React.FC = () => {
       marginLeft: 4,
     },
   });
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.content}
-      >
-        <View style={styles.header}>
-          <Image
-            source={require('../../assets/logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.appName}>Habit Tracker</Text>
-          <Text style={styles.appDescription}>
-            Build better habits, achieve your goals
-          </Text>
-        </View>
-
-        <View style={styles.form}>
-          {loginError ? <Text style={styles.errorText}>{loginError}</Text> : null}
-
-          <AppTextInput
-            label="Email"
-            placeholder="your.email@example.com"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-              setLoginError('');
-            }}
-          />
-
-          <AppTextInput
-            label="Password"
-            placeholder="Enter your password"
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => {
-              setPassword(text);
-              setLoginError('');
-            }}
-          />
-
-          <View style={{ height: 16 }} />
-
-          <AppButton
-            title="Log In"
-            onPress={handleLogin}
-            loading={isLoading}
-            disabled={isLoading}
-            icon='home'
-          />
-        </View>
-
-        <View style={styles.registerContainer}>
-          <Text style={styles.registerText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={handleRegister}>
-            <Text style={styles.registerLink}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
-};
 
 export default LoginScreen;
