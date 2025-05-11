@@ -24,11 +24,10 @@ const HabitCard = ({
   onDelete,
 }: HabitCardProps) => {
   const { theme } = useTheme();
+  const isCompleted = todayLog?.completed || false;
   const styles = createStyles(theme, habit, isCompleted);
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuAnimation] = useState(new Animated.Value(0));
-
-  const isCompleted = todayLog?.completed || false;
 
   const toggleMenu = () => {
     if (menuVisible) {
@@ -81,7 +80,7 @@ const HabitCard = ({
 
              {habit?.time && (
                            <View style={styles.timeContainer}>
-                             <Icon name="clock-outline" size={14} color={theme.colors.textSecondary} />
+                             <Icon name="clock-outline" size={14} color={theme.colors.secondaryText} />
                              <Text style={styles.timeText}>
                                {format(new Date(habit?.time), 'h:mm a')}
                              </Text>
@@ -276,7 +275,7 @@ const createStyles = (theme: any, habit: Habit, isCompleted: boolean) => StyleSh
     },
     timeText: {
         fontSize: 14,
-        color: theme.colors.textSecondary,
+        color: theme.colors.secondaryText,
         marginLeft: 4,
     },
 });

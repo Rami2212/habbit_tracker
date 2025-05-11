@@ -60,8 +60,6 @@ const RegisterScreen = () => {
     navigation.navigate(Routes.LOGIN as never);
   };
 
-  const styles =
-
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Create Account" showBackButton />

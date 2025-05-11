@@ -123,3 +123,26 @@ export type WeekCalendarProps {
   onDateSelect: (date: Date) => void;
   selectedDate: Date;
 }
+
+import { Animated } from 'react-native';
+
+// habit screen
+export type HabitListProps {
+  habits: Habit[];
+  findTodayLog: (habitId: string) => HabitLog | undefined;
+  onPress: (habit: Habit) => void;
+  onToggle: (habit: Habit) => void;
+  onLongPress: (habit: Habit) => void;
+  onEdit: (habit: Habit) => void;
+  onDelete: (habit: Habit) => void;
+  refreshing: boolean;
+  onRefresh: () => void;
+  slideAnimation: Animated.Value;
+}
+
+export type EmptyStateProps {
+  isFilterEmpty?: boolean;
+  filter?: 'all' | 'completed' | 'incomplete';
+  onAddPress?: () => void;
+  onResetFilter?: () => void;
+}
