@@ -283,6 +283,7 @@ const createStyles = (theme: any) => StyleSheet.create({
      },
      buttonContainer: {
        padding: 16,
+       marginBottom: 24,
      },
    });
 

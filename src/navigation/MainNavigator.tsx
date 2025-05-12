@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import { Routes } from './routes';
 import { MainTabParamList } from '../types';
@@ -36,7 +36,7 @@ const MainNavigator = () => {
               iconName = 'add';
               break;
             case Routes.CALENDAR:
-              iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+              iconName = focused ? 'calendar' : 'calendar-outline';
               break;
             case Routes.SETTINGS:
               iconName = focused ? 'person' : 'person-outline';
@@ -80,13 +80,20 @@ const MainNavigator = () => {
         name={Routes.ADD_HABIT}
         component={AddHabitScreen}
         options={{
-          tabBarLabel: '',
-        }}
+            tabBarLabel: '',
+            tabBarButton: (props) => (
+              <TouchableWithoutFeedback {...props}>
+                <View style={styles.addButton}>
+                  <Icon name="add" size={35} color="#FFFFFF" />
+                </View>
+              </TouchableWithoutFeedback>
+            ),
+          }}
       />
       <Tab.Screen
         name={Routes.CALENDAR}
         component={CalendarScreen}
-        options={{ tabBarLabel: 'Stats' }}
+        options={{ tabBarLabel: 'Calendar' }}
       />
       <Tab.Screen
         name={Routes.SETTINGS}
@@ -114,15 +121,14 @@ const createStyles = (theme: any) => StyleSheet.create({
   },
   addButton: {
     backgroundColor: theme.colors.primary,
-    borderRadius: 35,
-    width: 70,
-    height: 70,
+    borderRadius: 40,
+    width: 75,
+    height: 75,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 0,
     borderWidth: 8,
     borderColor: "#FFFFFF",
-    top: -16,
+    top: -28,
   },
 });
 
