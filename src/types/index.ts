@@ -111,9 +111,7 @@ export type AppButtonProps {
 export type HabitCardProps {
   habit: Habit;
   todayLog?: HabitLog;
-  onPress: (habit: Habit) => void;
   onToggle: (habit: Habit) => void;
-  onLongPress: (habit: Habit) => void;
   onEdit: (habit: Habit) => void;
   onDelete: (habit: Habit) => void;
 }
@@ -124,15 +122,11 @@ export type WeekCalendarProps {
   selectedDate: Date;
 }
 
-import { Animated } from 'react-native';
-
 // habit screen
 export type HabitListProps {
   habits: Habit[];
   findTodayLog: (habitId: string) => HabitLog | undefined;
-  onPress: (habit: Habit) => void;
   onToggle: (habit: Habit) => void;
-  onLongPress: (habit: Habit) => void;
   onEdit: (habit: Habit) => void;
   onDelete: (habit: Habit) => void;
   refreshing: boolean;

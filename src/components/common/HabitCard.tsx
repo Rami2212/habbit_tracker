@@ -17,7 +17,6 @@ import { HabitCardProps } from '../../types';
 const HabitCard = ({
   habit,
   todayLog,
-  onPress,
   onToggle,
   onLongPress,
   onEdit,
@@ -62,7 +61,6 @@ const HabitCard = ({
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.card}
-          onPress={() => onPress(habit)}
         >
           {/* icon */}
           <View style={styles.iconContainer}>

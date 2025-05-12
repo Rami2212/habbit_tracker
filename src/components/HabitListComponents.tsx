@@ -18,9 +18,7 @@ import { HabitListProps, EmptyStateProps } from '../types';
 export const HabitList = ({
   habits,
   findTodayLog,
-  onPress,
   onToggle,
-  onLongPress,
   onEdit,
   onDelete,
   refreshing,
@@ -29,21 +27,25 @@ export const HabitList = ({
 }: HabitListProps) => {
   const { theme } = useTheme();
 
-  const renderItem = ({ item, index }: { item: Habit; index: number }) => {
+  // Split habits
+  const incompleteHabits = habits.filter(
+    (habit) => !findTodayLog(habit.id)?.completed
+  );
+  const completedHabits = habits.filter(
+    (habit) => findTodayLog(habit.id)?.completed
+  );
+
+  const renderHabitItem = (item: Habit) => {
     const todayLog = findTodayLog(item.id);
     const isCompleted = todayLog?.completed || false;
-
-    // Apply sliding animation only for completed items
     const translateY = isCompleted ? slideAnimation : new Animated.Value(0);
 
     return (
-      <Animated.View style={{ transform: [{ translateY }] }}>
+      <Animated.View key={item.id} style={{ transform: [{ translateY }] }}>
         <HabitCard
           habit={item}
           todayLog={todayLog}
-          onPress={() => onPress(item)}
           onToggle={() => onToggle(item)}
-          onLongPress={() => onLongPress(item)}
           onEdit={() => onEdit(item)}
           onDelete={() => onDelete(item)}
         />
@@ -53,11 +55,34 @@ export const HabitList = ({
 
   return (
     <FlatList
-      data={habits}
-      keyExtractor={(item) => item.id}
-      renderItem={renderItem}
+      data={[]}
+      keyExtractor={() => Math.random().toString()} // Dummy key extractor
+      renderItem={null}
+      ListHeaderComponent={
+        <View>
+          {/* Incomplete Habits */}
+          {incompleteHabits.map(renderHabitItem)}
+
+          {/* Completed Section */}
+          {completedHabits.length > 0 && (
+            <View style={{ marginTop: 16 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  color: theme.colors.text,
+                  marginBottom: 8,
+                }}
+              >
+                Completed
+              </Text>
+              {completedHabits.map(renderHabitItem)}
+            </View>
+          )}
+        </View>
+      }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 80 }}
+      contentContainerStyle={{ paddingBottom: 80}}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -69,6 +94,7 @@ export const HabitList = ({
     />
   );
 };
+
 
 // empty state
 export const EmptyState = ({
