@@ -151,3 +151,9 @@ export type ConfirmDeleteModalProps {
   confirmText?: string;
   cancelText?: string;
 }
+
+export type EditHabitModalProps {
+  visible: boolean;
+  onClose: () => void;
+  habit: Habit | null;
+}
