@@ -140,3 +140,14 @@ export type EmptyStateProps {
   onAddPress?: () => void;
   onResetFilter?: () => void;
 }
+
+// modals
+export type ConfirmDeleteModalProps {
+  visible: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+  title?: string;
+  message?: string;
+  confirmText?: string;
+  cancelText?: string;
+}
