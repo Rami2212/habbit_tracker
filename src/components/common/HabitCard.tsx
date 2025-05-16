@@ -77,13 +77,13 @@ const HabitCard = ({
           <View style={styles.rightActions}>
 
              {habit?.time && (
-                           <View style={styles.timeContainer}>
-                             <Icon name="clock-outline" size={14} color={theme.colors.secondaryText} />
-                             <Text style={styles.timeText}>
-                               {format(new Date(habit?.time), 'h:mm a')}
-                             </Text>
-                           </View>
-                         )}
+               <View style={styles.timeContainer}>
+                 <Icon name="clock-outline" size={14} color={theme.colors.secondaryText} />
+                 <Text style={styles.timeText}>
+                   {format(new Date(habit?.time), 'h:mm a')}
+                 </Text>
+               </View>
+             )}
 
             <TouchableOpacity
               style={styles.checkContainer}

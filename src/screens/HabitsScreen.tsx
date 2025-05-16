@@ -234,7 +234,20 @@ const HabitsScreen = () => {
         onClose={() => setShowEditModal(false)}
       />
 
-
+      {/* completion animation */}
+      {showCelebration && (
+        <View >
+          <ConfettiCannon
+            count={200}
+            origin={{ x: -10, y: 0 }}
+            autoStart={true}
+            fadeOut={true}
+            explosionSpeed={350}
+            fallSpeed={3000}
+            ref={explosionRef}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };
