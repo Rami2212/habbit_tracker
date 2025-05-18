@@ -127,7 +127,7 @@ const createStyles = (theme: any) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 8,
-    borderColor: "#FFFFFF",
+    borderColor: theme.colors.card,
     top: -28,
   },
 });
