@@ -62,6 +62,8 @@ const EditHabitModal = ({
   const [time, setTime] = useState<Date>(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [frequency, setFrequency] = useState<'daily' | 'weekly'>('daily');
+  const [dayOfWeekNumber, setDayOfWeekNumber] = useState<number>(1);
 
   // reset form
   const resetForm = () => {
@@ -71,12 +73,17 @@ const EditHabitModal = ({
       setSelectedIcon(habit.icon);
       setSelectedColor(habit.color);
       setTime(habit.time ? new Date(habit.time) : new Date());
+      setFrequency(habit.frequency?.type || 'daily');
+      setDayOfWeekNumber(habit.frequency?.dayOfWeekNumber || 1);
+
     } else {
       setTitle('');
       setDescription('');
       setSelectedIcon(ICON_OPTIONS[0]);
       setSelectedColor(COLOR_OPTIONS[0]);
       setTime(new Date());
+      setFrequency('daily');
+      setDayOfWeekNumber(1);
     }
   };
 
@@ -101,6 +108,8 @@ const EditHabitModal = ({
       icon: selectedIcon,
       color: selectedColor,
       time,
+      frequency,
+      dayOfWeekNumber: frequency === 'weekly' ? dayOfWeekNumber : undefined,
     };
 
     const success = await saveHabit(updatedHabit);
@@ -164,6 +173,61 @@ const EditHabitModal = ({
                     multiline
                     numberOfLines={3}
                   />
+
+                  {/* frequency */}
+                    <Text style={styles.sectionTitle}>Frequency</Text>
+                    <View style={styles.frequencyContainer}>
+                      <TouchableOpacity
+                        style={[
+                          styles.frequencyOption,
+                          frequency === 'daily' && styles.frequencyOptionSelected,
+                        ]}
+                        onPress={() => setFrequency('daily')}
+                      >
+                        <Text style={[styles.frequencyText, frequency === 'daily' && styles.frequencyTextSelected]}>
+                          Daily
+                        </Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity
+                        style={[
+                          styles.frequencyOption,
+                          frequency === 'weekly' && styles.frequencyOptionSelected,
+                        ]}
+                        onPress={() => setFrequency('weekly')}
+                      >
+                        <Text style={[styles.frequencyText, frequency === 'weekly' && styles.frequencyTextSelected]}>
+                          Weekly
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    {frequency === 'weekly' && (
+                      <View>
+                        <Text style={styles.sectionTitle}>Select Day of the Week</Text>
+                        <View style={styles.frequencyContainer}>
+                          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              style={[
+                                styles.frequencyOption,
+                                dayOfWeekNumber === index + 1 && styles.frequencyOptionSelected,
+                              ]}
+                              onPress={() => setDayOfWeekNumber(index + 1)}
+                            >
+                              <Text
+                                style={[
+                                  styles.frequencyText,
+                                  dayOfWeekNumber === index + 1 && styles.frequencyTextSelected,
+                                ]}
+                              >
+                                {day}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      </View>
+                    )}
 
                   {/* time */}
                   <Text style={styles.sectionTitle}>Time</Text>
@@ -325,6 +389,33 @@ const createStyles = (theme: any) => StyleSheet.create({
   buttonContainer: {
     padding: 16,
   },
+   frequencyContainer: {
+     flexDirection: 'row',
+     marginBottom: 16,
+   },
+   frequencyOption: {
+     flex: 1,
+     paddingVertical: 12,
+     borderRadius: 8,
+     borderWidth: 1,
+     borderColor: theme.colors.border,
+     alignItems: 'center',
+     marginHorizontal: 5,
+     backgroundColor: theme.colors.card,
+   },
+   frequencyOptionSelected: {
+     backgroundColor: theme.colors.primary,
+     borderColor: theme.colors.primary,
+   },
+   frequencyText: {
+     fontSize: 16,
+     color: theme.colors.text,
+     fontWeight: '500',
+   },
+   frequencyTextSelected: {
+     color: '#fff',
+     fontWeight: '700',
+   },
 });
 
 export default EditHabitModal;

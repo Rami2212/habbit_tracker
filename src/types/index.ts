@@ -7,6 +7,8 @@ export type Habit {
   time: Date;
   color: string;
   createdAt: Date;
+  frequency: string;
+  dayOfWeekNumber?: number;
 }
 
 export type HabitLog {

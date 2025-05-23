@@ -80,13 +80,35 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return success;
   };
 
+//   const getActiveHabits = (): Habit[] => {
+//     return habits.filter(habit => !habit.isArchived);
+//   };
+
   const getActiveHabits = (): Habit[] => {
-    return habits.filter(habit => !habit.isArchived);
+    const jsDay = new Date().getDay(); //
+    const todayNum = jsDay === 0 ? 7 : jsDay;
+
+    return habits.filter(habit => {
+        console.log(todayNum, habit.dayOfWeekNumber);
+      if (habit.frequency === 'daily') return true;
+      if (habit.frequency === 'weekly' && habit.dayOfWeekNumber === todayNum) {
+        return true;
+      }
+      return false;
+    });
   };
 
-  const getArchivedHabits = (): Habit[] => {
-    return habits.filter(habit => habit.isArchived);
+  const getActiveHabitsByDate = (selectedDate: Date) => {
+    let dayOfWeek = selectedDate.getDay(); // 0 (Sun) to 6 (Sat)
+    dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek; // Convert Sunday (0) to 7
+console.log(dayOfWeek)
+    return habits.filter(habit => {
+      if (habit.frequency === 'daily') return true;
+      return habit.dayOfWeekNumber === dayOfWeek;
+    });
   };
+
+
 
   const getHabitById = (habitId: string): Habit | undefined => {
     return habits.find(habit => habit.id === habitId);
@@ -114,7 +136,7 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         toggleHabitCompletion: toggleHabitCompletionData,
         saveHabitLog: saveHabitLogData,
         getActiveHabits,
-        getArchivedHabits,
+        getActiveHabitsByDate,
         getHabitById,
         getHabitLogsForDate,
         getHabitLogsForHabit,

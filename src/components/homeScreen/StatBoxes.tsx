@@ -31,7 +31,7 @@ const StatBoxes = ({ selectedDate }: StatBoxProps) => {
   const completedHabits = dailyLogs.filter(log => log.completed).length;
 
   // completion rate
-  const completionRate = completedHabits/totalHabits*100;
+  const completionRate = completedHabits/totalHabits*100 || 0;
 
   return (
     <>

@@ -69,6 +69,8 @@ export const logoutUser = async (): Promise<void> => {
   try {
     // Only remove authentication state, not the user data
     await AsyncStorage.removeItem(AUTH_KEY);
+    await AsyncStorage.removeItem("@habits");
+    await AsyncStorage.removeItem("@habitLogs");
   } catch (error) {
     console.error('Error logging out:', error);
     throw error;

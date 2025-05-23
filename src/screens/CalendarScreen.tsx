@@ -27,6 +27,7 @@ const CalendarScreen = () => {
   const styles = createStyles(theme);
   const {
     getActiveHabits,
+    getActiveHabitsByDate,
     saveHabit,
     habitLogs,
     refreshHabits,
@@ -43,7 +44,7 @@ const CalendarScreen = () => {
   const [slideAnimation] = useState(new Animated.Value(0));
   const [showCelebration, setShowCelebration] = useState(false);
   const explosionRef = useRef(null);
-  const activeHabits = getActiveHabits();
+  const activeHabits = getActiveHabitsByDate(selectedDate);
 
   // refresh habits
   useFocusEffect(
