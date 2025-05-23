@@ -15,9 +15,9 @@ interface DailyGoalCardProps {
 const DailyGoalCard = ({ selectedDate }: DailyGoalCardProps) => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const { getActiveHabits, getHabitLogsForDate } = useHabits();
+  const { getActiveHabitsByDate, getHabitLogsForDate } = useHabits();
 
-  const activeHabits = getActiveHabits();
+  const activeHabits = getActiveHabitsByDate(selectedDate);
   const dailyLogs = getHabitLogsForDate(format(selectedDate, 'yyyy-MM-dd'));
 
   // calculate completion rates

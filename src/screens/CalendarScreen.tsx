@@ -18,7 +18,7 @@ import { format, isSameDay } from 'date-fns';
 import { Routes } from '../navigation/routes';
 import FloatingActionButton from '../components/common/FloatingActionButton';
 import { HabitList, EmptyState } from '../components/HabitListComponents';
-import WeekCalendar from '../components/homeScreen/WeekCalendar';
+import MonthCalendar from '../components/MonthCalendar';
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 const CalendarScreen = () => {
@@ -143,7 +143,7 @@ const CalendarScreen = () => {
 
       {/* calendar */}
       <View style={styles.calendarContainer}>
-        <WeekCalendar
+        <MonthCalendar
           selectedDate={selectedDate}
           onDateSelect={handleDateSelect}
         />

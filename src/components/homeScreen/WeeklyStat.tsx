@@ -11,7 +11,7 @@ import { useHabits } from '../../context/HabitContext';
 const WeeklyStat = () => {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const { getActiveHabits, getHabitLogsForDate } = useHabits();
+  const { getActiveHabitsByDate, getHabitLogsForDate } = useHabits();
   const [weeklyStats, setWeeklyStats] = useState<{ day: string; completion: number }[]>([]);
   const [averageCompletion, setAverageCompletion] = useState(0);
 
@@ -25,31 +25,34 @@ const WeeklyStat = () => {
     return days;
   }, []);
 
+  // calculate weekly stat
   useEffect(() => {
-    // get active habits
-    const activeHabits = getActiveHabits();
-
-    // calculate weekly stats
     const stats = weekDays.map(day => {
       const dateStr = format(day, 'yyyy-MM-dd');
-      const dayLogs = getHabitLogsForDate(dateStr);
-      const completedLogs = dayLogs.filter(log => log.completed).length;
+
+      const activeHabitsForDay = getActiveHabitsByDate(day);
+      const activeHabitIds = activeHabitsForDay.map(habit => habit.id);
+
+      const logs = getHabitLogsForDate(dateStr);
+
+      const completedLogs = logs.filter(
+        log => log.completed && activeHabitIds.includes(log.habitId)
+      ).length;
 
       return {
         day: format(day, 'E').charAt(0),
-        completion: activeHabits.length > 0
-          ? (completedLogs / activeHabits.length) * 100
-          : 0
+        completion:
+          activeHabitsForDay.length > 0
+            ? (completedLogs / activeHabitsForDay.length) * 100
+            : 0,
       };
     });
 
     setWeeklyStats(stats);
 
-    // calculate average completion
-    const avg = stats.reduce((acc, stat) => acc + stat.completion, 0) / 7;
+    const avg = stats.reduce((acc, stat) => acc + stat.completion, 0) / stats.length;
     setAverageCompletion(Math.round(avg));
-
-  }, [weekDays, getActiveHabits, getHabitLogsForDate]);
+  }, [weekDays, getHabitLogsForDate, getActiveHabitsByDate]);
 
   return (
     <View style={styles.card}>

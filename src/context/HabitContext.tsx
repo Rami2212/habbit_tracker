@@ -80,10 +80,6 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return success;
   };
 
-//   const getActiveHabits = (): Habit[] => {
-//     return habits.filter(habit => !habit.isArchived);
-//   };
-
   const getActiveHabits = (): Habit[] => {
     const jsDay = new Date().getDay(); //
     const todayNum = jsDay === 0 ? 7 : jsDay;
@@ -99,9 +95,8 @@ export const HabitProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const getActiveHabitsByDate = (selectedDate: Date) => {
-    let dayOfWeek = selectedDate.getDay(); // 0 (Sun) to 6 (Sat)
-    dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek; // Convert Sunday (0) to 7
-console.log(dayOfWeek)
+    let dayOfWeek = selectedDate.getDay();
+    dayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
     return habits.filter(habit => {
       if (habit.frequency === 'daily') return true;
       return habit.dayOfWeekNumber === dayOfWeek;
