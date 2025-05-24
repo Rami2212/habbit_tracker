@@ -1,97 +1,272 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎯 Habit Tracker App
 
-# Getting Started
+A comprehensive React Native habit tracking application built with TypeScript that helps users build and maintain healthy habits through intuitive progress tracking, beautiful animations, and offline-first functionality.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📋 Project Description
 
-## Step 1: Start Metro
+The Habit Tracker App is a mobile application designed to help users create, track, and maintain their daily and weekly habits. The app features a clean, modern interface with smooth animations, dark/light mode support, and comprehensive progress tracking capabilities. All data is stored locally using AsyncStorage, ensuring the app works completely offline.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 📹 Demo Video
 
-```sh
-# Using npm
+🎥 **[View Demo Video](https://drive.google.com/file/d/1xEaaOYOoAKMLpUHTdIWHI5MYZqwg07jo/view?usp=sharing)**
+
+https://drive.google.com/file/d/1xEaaOYOoAKMLpUHTdIWHI5MYZqwg07jo/view?usp=sharing
+
+### ✨ Core Features
+
+#### 1. 🔐 Registration / Login Screens (Local Only)
+- Form with Name, Email, and Password (only local storage)
+- Save user details in AsyncStorage for persistent authentication
+- Auto-login functionality if user info exists
+
+#### 2. ➕ Add Habit Screen
+- Comprehensive form to add new habits with:
+- Habit name, description and time
+  - Frequency selection: Daily or Weekly options
+  - Icon and color selection for habits
+- All habit data saved locally in AsyncStorage
+
+#### 3. 📱 Habit Screen
+- Display all added habits using optimized FlatList component
+- For each habit display:
+  - Habit Name, description, and scheduled time
+  - Real-time status: Completed / Not Completed for today
+  - Interactive button to mark habits as completed
+- Smooth animations when marking habits complete
+- Advanced filtering system:
+  - "All Habits" - View complete habit list
+  - "Completed" - Show only completed habits
+  - "Incomplete Habits" - Display pending habits
+- Edit habit popup with full modification capabilities
+- Delete habit popup with confirmation dialog
+
+#### 4. 📅 Calendar Screen
+- Interactive calendar for date-specific habit management
+- Show habits list for user-selected dates
+- For each habit on selected date:
+  - Display Habit Name, description, and time
+  - Show completion status: Completed / Not Completed for selected day
+  - Button to mark habits as completed for specific dates
+- Historical habit tracking and date-based progress review
+
+#### 5. 🏠 Home Screen (Progress Tracking)
+- Comprehensive progress analytics including:
+  - Real-time percentage of habits completed today
+  - Weekly progress tracking with visual indicators
+  - Simple charts and statistical text displays
+- Daily goal completion visualization
+- Motivational progress insights based on habit completion rate
+
+#### 6. 👤 Profile Screen
+- User information management:
+  - Display username and email
+  - Dark/Light mode toggle switch
+  - Profile edit popup (can edit all user information)
+- Logout functionality:
+  - Clear all AsyncStorage data
+  - Secure return to Login screen
+  - Complete session termination
+
+### 🧠 Additional Features (Advanced Implementations)
+
+#### 📅 Enhanced Calendar View
+- Month and week calendar navigation
+
+#### 🎨 Advanced Animations
+- Satisfying completion animations when marking habits complete
+
+#### 🌙 Theme Management
+- Complete Light / Dark mode implementation
+- Consistent theming across all app components
+- User preference persistence in local storage
+
+#### 📱 Offline-First Architecture
+- App works completely without internet connection
+- All data stored locally using AsyncStorage
+
+## 🏗️ Folder Structure
+
+```
+habbit_tracker/
+├── .bundle/
+├── .idea/
+├── __tests__/
+├── android/
+├── ios/
+├── node_modules/
+├── src/
+│   ├── assets/
+│   │   ├── blank-profile-picture.jpg
+│   │   └── logo.png
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── AppButton.tsx
+│   │   │   ├── AppTextInput.tsx
+│   │   │   ├── FloatingActionButton.tsx
+│   │   │   ├── HabitCard.tsx
+│   │   │   └── Header.tsx
+│   │   ├── homeScreen/
+│   │   │   ├── DailyGoalCard.tsx
+│   │   │   ├── StatBoxes.tsx
+│   │   │   ├── WeekCalendar.tsx
+│   │   │   └── WeeklyStat.tsx
+│   │   ├── modals/
+│   │   │   ├── ConfirmDeleteModal.tsx
+│   │   │   ├── EditHabitModal.tsx
+│   │   │   └── EditProfileModal.tsx
+│   │   ├── HabitListComponents.tsx
+│   │   └── MonthCalendar.tsx
+│   ├── context/
+│   │   ├── HabitContext.tsx
+│   │   ├── ThemeContext.tsx
+│   │   └── UserContext.tsx
+│   ├── navigation/
+│   │   ├── AppNavigator.tsx
+│   │   ├── AuthNavigator.tsx
+│   │   ├── MainNavigator.tsx
+│   │   └── routes.ts
+│   ├── screens/
+│   │   ├── auth/
+│   │   │   ├── LoginScreen.tsx
+│   │   │   └── RegisterScreen.tsx
+│   │   ├── AddHabitScreen.tsx
+│   │   ├── CalendarScreen.tsx
+│   │   ├── HabitsScreen.tsx
+│   │   ├── HomeScreen.tsx
+│   │   ├── SettingsScreen.tsx
+│   │   └── SplashScreen.tsx
+│   ├── services/
+│   │   ├── habitService.ts
+│   │   └── userService.ts
+│   ├── theme/
+│   │   ├── colors.ts
+│   │   └── themes.ts
+│   └── types/
+│       ├── index.ts
+│       └── theme.ts
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc.js
+├── .watchmanconfig
+├── app.json
+├── App.tsx
+├── babel.config.js
+├── Gemfile
+├── index.js
+├── jest.config.js
+├── metro.config.js
+├── package.json
+├── package-lock.json
+├── react-native.config.js
+├── README.md
+└── tsconfig.json
+```
+
+## 🛠️ Technical Stack
+
+### Core Technologies
+- **React Native CLI** (v0.79.2) - Cross-platform mobile development framework
+- **TypeScript** (v5.0.4) - Static type checking for enhanced code quality
+- **React Navigation** - Navigation library for seamless screen transitions
+  - `@react-navigation/stack` - Stack navigation
+  - `@react-navigation/bottom-tabs` - Tab-based navigation
+
+### Key Dependencies
+
+#### State Management & Storage
+- `@react-native-async-storage/async-storage` (v2.1.2) - Local data persistence
+- **React Context API** - Global state management for user data, habits, and theme
+
+#### UI & Animation Libraries
+- `react-native-reanimated` (v3.17.5) - High-performance animations
+- `react-native-gesture-handler` (v2.25.0) - Touch gesture handling
+- `react-native-linear-gradient` (v2.8.3) - Beautiful gradient backgrounds
+- `react-native-vector-icons` (v10.2.0) - Icon library for UI elements
+- `react-native-svg` (v15.11.2) - SVG support for custom graphics
+- `react-native-confetti-cannon` (v1.5.2) - Celebration animations for habit completion
+
+#### Date & Calendar
+- `react-native-calendars` (v1.1312.0) - Calendar component for date selection
+- `@react-native-community/datetimepicker` (v8.3.0) - Time picker for habit scheduling
+- `date-fns` (v2.30.0) - Date manipulation and formatting utilities
+
+#### User Experience
+- `react-native-toast-message` (v2.1.5) - Toast notifications for user feedback
+- `react-native-safe-area-context` (v5.4.0) - Safe area handling for different devices
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+
+Before setting up the project, ensure you have the following installed:
+
+- **Node.js** (version 18 or higher)
+- **npm** or **yarn** package manager
+- **React Native CLI** (`npm install -g @react-native-community/cli`)
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development - macOS only)
+- **JDK 11** or higher
+
+### Installation Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Rami2212/habbit_tracker.git
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Install iOS dependencies** (macOS only)
+   ```bash
+   cd ios && pod install && cd ..
+   ```
+
+4. **Android Setup**
+   - Open Android Studio
+   - Open the `android` folder in Android Studio
+   - Let Gradle sync complete
+   - Ensure you have an Android Virtual Device (AVD) set up
+
+5. **iOS Setup** (macOS only)
+   - Open `ios/habbit_tracker.xcworkspace` in Xcode
+   - Select your target device or simulator
+
+## 🚀 Running the Application
+
+### Start Metro Bundler
+
+First, start the Metro development server:
+
+```bash
 npm start
-
-# OR using Yarn
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
+### Run on Android
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
+```bash
+# Make sure you have an Android emulator running or device connected
 npm run android
-
-# OR using Yarn
+# or
 yarn android
 ```
 
-### iOS
+### Run on iOS (macOS only)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
+# Make sure you have iOS Simulator running or device connected
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Happy Habit Tracking! 🎯✨**
